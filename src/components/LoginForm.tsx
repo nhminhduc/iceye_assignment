@@ -60,7 +60,6 @@ const LoginForm = () => {
             label="Username"
             name="userId"
             rules={[{ required: true, message: "Please enter your username" }]}
-            hasFeedback
           >
             <Input
               prefix={<UserOutlined className="text-gray-400" />}
@@ -75,7 +74,6 @@ const LoginForm = () => {
             label="Password"
             name="password"
             rules={[{ required: true, message: "Please enter your password" }]}
-            hasFeedback
           >
             <Input.Password
               prefix={<LockOutlined className="text-gray-400" />}
