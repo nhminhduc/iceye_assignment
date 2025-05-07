@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Form, Input, Button, Checkbox, Typography, message, Card } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { useSetAtom } from "jotai";
@@ -7,12 +7,11 @@ import { useNavigate } from "@tanstack/react-router";
 
 const { Title, Text } = Typography;
 
-const LoginForm: React.FC = () => {
+const LoginForm = () => {
   const [loading, setLoading] = useState(false);
   const login = useSetAtom(loginAtom);
   const navigate = useNavigate({ from: "/login" });
 
-  // Get redirect target from query string (default to home)
   const params = new URLSearchParams(window.location.search);
   const redirectUrl = params.get("redirect") || "/dashboard";
 

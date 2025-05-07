@@ -1,54 +1,157 @@
-# React + TypeScript + Vite
+# ICEYE Assignment
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern web application built with React and TypeScript, featuring a robust architecture and comprehensive feature set.
 
-Currently, two official plugins are available:
+## Project Overview
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+This application provides a feature-rich web interface with the following capabilities:
 
-## Expanding the ESLint configuration
+- User authentication and authorization
+- Dashboard with data visualization
+- Profile management with password change functionality
+- Acquisition management panel
+- Responsive and modern UI using Ant Design components
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## _LARVIS_ improvements
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+For _LARVIS_ improvements, see the [backend README](/backend/README.md).
+
+## Tech Stack
+
+### Core Technologies
+
+- **React 19** - Latest version of the React library
+- **TypeScript** - For type-safe development
+- **Vite** - Next-generation frontend tooling
+
+### Key Libraries
+
+- **@tanstack/react-query** - For efficient data fetching and state management
+- **@tanstack/react-router** - Type-safe routing solution
+- **Ant Design (antd)** - UI component library
+- **Tailwind CSS** - Utility-first CSS framework
+- **Recharts** - Composable charting library
+- **Jotai** - Primitive and flexible state management
+- **Axios** - HTTP client
+
+### Development Tools
+
+- **ESLint** - Code linting with TypeScript support
+- **Vitest** - Unit testing framework
+- **Testing Library** - React component testing utilities
+
+## Setup Instructions
+
+### Prerequisites
+
+- Node.js (>= 18.x)
+- pnpm (preferred package manager)
+
+### Environment Variables
+
+Create a `.env` file in the root directory with the following variables:
+
+```bash
+VITE_API_BASE_URL=http://localhost:3000
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Installation
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+```bash
+# Install dependencies
+pnpm install
 ```
+
+## Running Locally
+
+### Development Mode
+
+```bash
+# Start the development server
+pnpm dev
+```
+
+The application will be available at `http://localhost:5173`
+
+### Using Docker Compose
+
+```bash
+# Build and start all services
+docker compose up -d --build
+```
+
+The application will be available at `http://localhost:3000`
+
+## Building for Production
+
+```bash
+# Create a production build
+pnpm build
+
+# Preview the production build locally
+pnpm preview
+```
+
+## Important Notes & TODOs
+
+Current limitations and areas for improvement:
+
+- Dark mode support pending implementation
+- Extended error handling needed in some areas
+- API rate limiting implementation to be added
+- Additional unit tests coverage required
+- Form validation enhancements planned
+
+## Future Improvements
+
+### Planned Features
+
+1. **Role-Based Access Control (RBAC)**
+
+   - Implement fine-grained user permissions
+   - Role management interface
+   - Access control matrices
+
+2. **Performance Optimizations**
+
+   - Implement caching strategy tuning
+   - Code splitting optimization
+   - Bundle size reduction
+
+3. **Enhanced User Experience**
+
+   - Improved responsive design
+   - Accessibility enhancements
+   - Offline mode support
+
+4. **Security Enhancements**
+
+   - Implement refresh token mechanism
+   - Add rate limiting
+   - Enhanced password policies
+   - Security headers configuration
+
+5. **Developer Experience**
+
+   - Improved documentation
+   - Streamlined CI/CD pipeline
+   - Enhanced development tooling
+
+6. **Testing and Quality Assurance**
+
+   - Increase unit test coverage
+   - Implement end-to-end testing
+   - Continuous integration setup
+
+7. **Monitoring and Analytics**
+
+   - Integrate application performance monitoring
+   - User behavior analytics
+   - Error tracking and reporting
+
+8. **Deployment and Hosting**
+
+   - Explore deployment options (Github Pages, Vercel, etc.)
+   - CI/CD pipeline for automated deployments
+   - Container orchestration with Kubernetes
+   - Multi-cloud deployment strategy

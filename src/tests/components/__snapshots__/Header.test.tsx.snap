@@ -1,0 +1,36 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Header component > renders the header with a switch snapshots 1`] = `
+<div>
+  <header
+    class="ant-layout-header flex items-center justify-end px-4 shadow-sm css-dev-only-do-not-override-1m63z2v"
+    role="banner"
+  >
+    <button
+      aria-checked="false"
+      aria-label="Toggle dark/light mode"
+      class="ant-switch css-dev-only-do-not-override-1m63z2v"
+      role="switch"
+      type="button"
+    >
+      <div
+        class="ant-switch-handle"
+      />
+      <span
+        class="ant-switch-inner"
+      >
+        <span
+          class="ant-switch-inner-checked"
+        >
+          🌙
+        </span>
+        <span
+          class="ant-switch-inner-unchecked"
+        >
+          ☀️
+        </span>
+      </span>
+    </button>
+  </header>
+</div>
+`;
