@@ -52,7 +52,7 @@ For _LARVIS_ improvements, see the [backend README](/backend/README.md).
 Create a `.env` file in the root directory with the following variables:
 
 ```bash
-VITE_API_BASE_URL=http://localhost:3000
+VITE_API_BASE_URL=http://localhost:8080
 ```
 
 ### Installation
