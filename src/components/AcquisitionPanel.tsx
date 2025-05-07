@@ -108,7 +108,7 @@ const AcquisitionsChart: React.FC = () => {
       {view === "chart" ? (
         <div className="h-[400px]">
           <ResponsiveContainer width="100%" height="100%">
-            <LineChart data={slice}>
+            <LineChart data={slice} data-testid="linechart">
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis
                 dataKey="date"
