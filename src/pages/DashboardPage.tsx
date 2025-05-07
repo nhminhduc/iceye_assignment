@@ -27,7 +27,7 @@ const DashboardPage: React.FC = () => {
   }
 
   return (
-    <div className="flex flex-col bg-gray-100">
+    <div className="h-full flex flex-col bg-gray-100">
       <main role="main" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2">
         <AcquisitionsPanel />
       </main>

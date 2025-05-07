@@ -10,28 +10,34 @@ import {
 } from "jotai-tanstack-query";
 import apiClient from "@/api/apiClient";
 
+/**
+ * A simple cookie-based storage implementing the Storage interface.
+ * Uses root path and current domain to ensure consistency across routes.
+ */
 const cookieStorage = {
-  getItem: (key: string) => {
+  getItem: (key: string): string | null => {
     return Cookies.get(key) ?? null;
   },
-  setItem: (key: string, value: string | null) => {
+  setItem: (key: string, value: string | null): void => {
     if (value === null) {
-      Cookies.remove(key, { path: "/dashboard" });
+      Cookies.remove(key, { path: "/" });
+      try {
+        localStorage.removeItem(key);
+      } catch {}
     } else {
       Cookies.set(key, value, {
         expires: 1,
         secure: true,
         sameSite: "Strict",
-        path: "/dashboard",
+        path: "/",
       });
     }
   },
-  removeItem: (key: string) => {
-    Cookies.remove(key, { path: "/dashboard" });
+  removeItem: (key: string): void => {
+    Cookies.remove(key, { path: "/" });
   },
 };
 
-// 2) Persist both userId and accessToken in cookies:
 export const userIdAtom = atomWithStorage<string | null>(
   "userId",
   null,
@@ -48,11 +54,11 @@ export const loginAtom = atom<
   [{ userId: string; password: string }],
   Promise<void>
 >(null, async (_get, set, { userId, password }) => {
-  const { access: accessToken } = await apiClient.post<{ access: string }>(
-    "/token",
-    { user_id: userId, password }
-  );
-  set(accessTokenAtom, accessToken);
+  const response = await apiClient.post<{ access: string }>("/token", {
+    user_id: userId,
+    password,
+  });
+  set(accessTokenAtom, response.access);
   set(userIdAtom, userId);
 });
 
@@ -64,19 +70,15 @@ export const logoutAtom = atom(null, (_get, set) => {
 export const userAtom = atomWithQuery<User | null>((get: Getter) => {
   const token = get(accessTokenAtom);
   const userId = get(userIdAtom);
-
   return {
     queryKey: ["user", userId, token],
     enabled: Boolean(token && userId),
     queryFn: async () => {
-      if (!token || !userId) return null;
-      try {
-        const user = await apiClient.get<User>(`/users/${userId}`);
-        return user;
-      } catch {
-        console.error("Failed to fetch user");
-        return null;
-      }
+      const response = await apiClient.get<User>(`/users/${userId}`);
+      return response;
+    },
+    onError: (error: unknown) => {
+      console.error("userAtom fetch error:", error);
     },
   };
 });
@@ -97,7 +99,6 @@ export const updateProfileAtom = atomWithMutation<
       { headers: { Authorization: `Bearer ${token}` } }
     );
   },
-  // invalidate the “user” query so it refetches with fresh data:
   onSuccess: () => {
     const token = get(accessTokenAtom);
     const userId = get(userIdAtom);
@@ -107,6 +108,6 @@ export const updateProfileAtom = atomWithMutation<
   },
 }));
 
-export const isLoggedInAtom = atom<boolean>((get) =>
-  Boolean(get(accessTokenAtom))
-);
+export const isLoggedInAtom = atom<boolean>((get) => {
+  return Boolean(get(accessTokenAtom));
+});
