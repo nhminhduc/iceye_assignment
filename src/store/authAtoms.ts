@@ -16,18 +16,18 @@ const cookieStorage = {
   },
   setItem: (key: string, value: string | null) => {
     if (value === null) {
-      Cookies.remove(key, { path: "/" });
+      Cookies.remove(key, { path: "/dashboard" });
     } else {
       Cookies.set(key, value, {
         expires: 1,
         secure: true,
         sameSite: "Strict",
-        path: "/",
+        path: "/dashboard",
       });
     }
   },
   removeItem: (key: string) => {
-    Cookies.remove(key, { path: "/" });
+    Cookies.remove(key, { path: "/dashboard" });
   },
 };
 
@@ -106,3 +106,7 @@ export const updateProfileAtom = atomWithMutation<
     });
   },
 }));
+
+export const isLoggedInAtom = atom<boolean>((get) =>
+  Boolean(get(accessTokenAtom))
+);

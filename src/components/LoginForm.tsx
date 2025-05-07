@@ -12,6 +12,10 @@ const LoginForm: React.FC = () => {
   const login = useSetAtom(loginAtom);
   const navigate = useNavigate({ from: "/login" });
 
+  // Get redirect target from query string (default to home)
+  const params = new URLSearchParams(window.location.search);
+  const redirectUrl = params.get("redirect") || "/dashboard";
+
   const onFinish = async (values: {
     userId: string;
     password: string;
@@ -21,7 +25,8 @@ const LoginForm: React.FC = () => {
     try {
       await login({ userId: values.userId, password: values.password });
       message.success("Welcome!");
-      navigate({ to: "/" });
+      // Navigate to original destination or home, replacing history
+      navigate({ to: redirectUrl, replace: true });
     } catch (err: any) {
       console.error("Login failed", err);
       message.error(err.message || "Login failed, please try again.");
@@ -31,7 +36,7 @@ const LoginForm: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-6">
+    <div className="min-h-screen flex items-center justify-center p-6 bg-gray-50">
       <Card
         className="w-full max-w-sm shadow-xl rounded-lg p-8"
         aria-labelledby="login-title"
@@ -54,6 +59,7 @@ const LoginForm: React.FC = () => {
             label="Username"
             name="userId"
             rules={[{ required: true, message: "Please enter your username" }]}
+            hasFeedback
           >
             <Input
               prefix={<UserOutlined className="text-gray-400" />}
@@ -68,13 +74,19 @@ const LoginForm: React.FC = () => {
             label="Password"
             name="password"
             rules={[{ required: true, message: "Please enter your password" }]}
+            hasFeedback
           >
             <Input.Password
               prefix={<LockOutlined className="text-gray-400" />}
               placeholder="Password"
               size="large"
               aria-label="Password"
+              autoComplete="current-password"
             />
+          </Form.Item>
+
+          <Form.Item name="remember" valuePropName="checked">
+            <Checkbox>Remember me</Checkbox>
           </Form.Item>
 
           <Form.Item>

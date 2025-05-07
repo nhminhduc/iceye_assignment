@@ -3,6 +3,10 @@ import { RouterProvider, createRouter } from "@tanstack/react-router";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { routeTree } from "./routeTree.gen";
 import "./index.css";
+import { Provider, useAtom } from "jotai";
+import React from "react";
+import { isLoggedInAtom } from "./store/authAtoms";
+import "@ant-design/v5-patch-for-react-19";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -20,7 +24,7 @@ const queryClient = new QueryClient({
 const router = createRouter({
   routeTree,
   context: {
-    queryClient,
+    isLoggedIn: false,
   },
   defaultPreload: "intent",
   defaultPreloadStaleTime: 0,
@@ -33,13 +37,23 @@ declare module "@tanstack/react-router" {
   }
 }
 
+const InnerApp = () => {
+  const [isLoggedIn] = useAtom(isLoggedInAtom);
+  console.log("isLoggedIn", isLoggedIn);
+  return <RouterProvider router={router} context={{ isLoggedIn }} />;
+};
+
 const rootElement = document.getElementById("root")!;
 
 if (!rootElement.innerHTML) {
   const root = ReactDOM.createRoot(rootElement);
   root.render(
-    <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
-    </QueryClientProvider>
+    <React.StrictMode>
+      <Provider>
+        <QueryClientProvider client={queryClient}>
+          <InnerApp />
+        </QueryClientProvider>
+      </Provider>
+    </React.StrictMode>
   );
 }

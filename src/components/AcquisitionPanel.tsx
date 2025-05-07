@@ -62,10 +62,10 @@ const AcquisitionsPanel: React.FC = () => {
   ];
 
   return (
-    <section className="flex items-center justify-center bg-gray-100 p-4">
+    <section className="flex items-center justify-center bg-gray-100 p-2">
       <Card
         title={
-          <h2 className="text-xl font-semibold text-gray-800">
+          <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-200">
             Satellite Acquisitions (Last Month)
           </h2>
         }

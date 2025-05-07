@@ -43,7 +43,7 @@ const ChangePasswordPage: React.FC = () => {
         aria-labelledby="change-password-title"
       >
         <Link
-          to="/"
+          to="/dashboard"
           className="text-blue-600 hover:text-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded"
           aria-label="Back to Dashboard"
         >
