@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from "axios";
 import type { AxiosRequestConfig, RawAxiosRequestHeaders } from "axios";
 import Cookies from "js-cookie";

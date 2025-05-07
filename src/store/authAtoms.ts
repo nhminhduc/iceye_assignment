@@ -23,7 +23,9 @@ const cookieStorage = {
       Cookies.remove(key, { path: "/" });
       try {
         localStorage.removeItem(key);
-      } catch {}
+      } catch {
+        console.error("Failed to remove item from localStorage:", key);
+      }
     } else {
       Cookies.set(key, value, {
         expires: 1,
@@ -43,6 +45,7 @@ export const userIdAtom = atomWithStorage<string | null>(
   null,
   cookieStorage
 );
+
 export const accessTokenAtom = atomWithStorage<string | null>(
   "accessToken",
   null,
@@ -85,8 +88,8 @@ export const userAtom = atomWithQuery<User | null>((get: Getter) => {
 
 export const updateProfileAtom = atomWithMutation<
   User,
-  { name: string; password: string }
->((get: Getter) => ({
+  { name?: string; password?: string }
+>((get) => ({
   mutationFn: async ({ name, password }) => {
     const token = get(accessTokenAtom);
     const userId = get(userIdAtom);

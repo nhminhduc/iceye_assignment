@@ -27,9 +27,11 @@ const LoginForm: React.FC = () => {
       message.success("Welcome!");
       // Navigate to original destination or home, replacing history
       navigate({ to: redirectUrl, replace: true });
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error("Login failed", err);
-      message.error(err.message || "Login failed, please try again.");
+      const errorMsg =
+        err instanceof Error ? err.message : "Login failed, please try again.";
+      message.error(errorMsg);
     } finally {
       setLoading(false);
     }

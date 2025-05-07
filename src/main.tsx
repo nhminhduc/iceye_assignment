@@ -39,7 +39,6 @@ declare module "@tanstack/react-router" {
 
 const InnerApp = () => {
   const [isLoggedIn] = useAtom(isLoggedInAtom);
-  console.log("isLoggedIn", isLoggedIn);
   return <RouterProvider router={router} context={{ isLoggedIn }} />;
 };
 

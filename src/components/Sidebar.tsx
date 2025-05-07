@@ -2,10 +2,10 @@ import React, { useEffect } from "react";
 import { Layout, Menu, Button, Grid } from "antd";
 import {
   HomeOutlined,
-  LockOutlined,
   MenuUnfoldOutlined,
   MenuFoldOutlined,
   LogoutOutlined,
+  UserOutlined,
 } from "@ant-design/icons";
 import { useAtom, useSetAtom } from "jotai";
 import { sideMenuCollapsedAtom, isDarkModeAtom } from "@/store/uiAtoms";
@@ -42,9 +42,9 @@ const Sidebar: React.FC = () => {
   const menuItems = [
     { key: "dashboard", icon: <HomeOutlined />, label: "Dashboard" },
     {
-      key: "change-password",
-      icon: <LockOutlined />,
-      label: "Change Password",
+      key: "Profile",
+      icon: <UserOutlined />,
+      label: "Profile",
     },
   ];
 

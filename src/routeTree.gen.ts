@@ -13,8 +13,8 @@
 import { Route as rootRoute } from './routes/__root'
 import { Route as LoginImport } from './routes/login'
 import { Route as AuthImport } from './routes/_auth'
+import { Route as AuthProfileImport } from './routes/_auth.profile'
 import { Route as AuthDashboardImport } from './routes/_auth.dashboard'
-import { Route as AuthChangePasswordImport } from './routes/_auth.change-password'
 
 // Create/Update Routes
 
@@ -29,15 +29,15 @@ const AuthRoute = AuthImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const AuthDashboardRoute = AuthDashboardImport.update({
-  id: '/dashboard',
-  path: '/dashboard',
+const AuthProfileRoute = AuthProfileImport.update({
+  id: '/profile',
+  path: '/profile',
   getParentRoute: () => AuthRoute,
 } as any)
 
-const AuthChangePasswordRoute = AuthChangePasswordImport.update({
-  id: '/change-password',
-  path: '/change-password',
+const AuthDashboardRoute = AuthDashboardImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
   getParentRoute: () => AuthRoute,
 } as any)
 
@@ -59,18 +59,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LoginImport
       parentRoute: typeof rootRoute
     }
-    '/_auth/change-password': {
-      id: '/_auth/change-password'
-      path: '/change-password'
-      fullPath: '/change-password'
-      preLoaderRoute: typeof AuthChangePasswordImport
-      parentRoute: typeof AuthImport
-    }
     '/_auth/dashboard': {
       id: '/_auth/dashboard'
       path: '/dashboard'
       fullPath: '/dashboard'
       preLoaderRoute: typeof AuthDashboardImport
+      parentRoute: typeof AuthImport
+    }
+    '/_auth/profile': {
+      id: '/_auth/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof AuthProfileImport
       parentRoute: typeof AuthImport
     }
   }
@@ -79,13 +79,13 @@ declare module '@tanstack/react-router' {
 // Create and export the route tree
 
 interface AuthRouteChildren {
-  AuthChangePasswordRoute: typeof AuthChangePasswordRoute
   AuthDashboardRoute: typeof AuthDashboardRoute
+  AuthProfileRoute: typeof AuthProfileRoute
 }
 
 const AuthRouteChildren: AuthRouteChildren = {
-  AuthChangePasswordRoute: AuthChangePasswordRoute,
   AuthDashboardRoute: AuthDashboardRoute,
+  AuthProfileRoute: AuthProfileRoute,
 }
 
 const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren)
@@ -93,36 +93,31 @@ const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren)
 export interface FileRoutesByFullPath {
   '': typeof AuthRouteWithChildren
   '/login': typeof LoginRoute
-  '/change-password': typeof AuthChangePasswordRoute
   '/dashboard': typeof AuthDashboardRoute
+  '/profile': typeof AuthProfileRoute
 }
 
 export interface FileRoutesByTo {
   '': typeof AuthRouteWithChildren
   '/login': typeof LoginRoute
-  '/change-password': typeof AuthChangePasswordRoute
   '/dashboard': typeof AuthDashboardRoute
+  '/profile': typeof AuthProfileRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/_auth': typeof AuthRouteWithChildren
   '/login': typeof LoginRoute
-  '/_auth/change-password': typeof AuthChangePasswordRoute
   '/_auth/dashboard': typeof AuthDashboardRoute
+  '/_auth/profile': typeof AuthProfileRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '' | '/login' | '/change-password' | '/dashboard'
+  fullPaths: '' | '/login' | '/dashboard' | '/profile'
   fileRoutesByTo: FileRoutesByTo
-  to: '' | '/login' | '/change-password' | '/dashboard'
-  id:
-    | '__root__'
-    | '/_auth'
-    | '/login'
-    | '/_auth/change-password'
-    | '/_auth/dashboard'
+  to: '' | '/login' | '/dashboard' | '/profile'
+  id: '__root__' | '/_auth' | '/login' | '/_auth/dashboard' | '/_auth/profile'
   fileRoutesById: FileRoutesById
 }
 
@@ -153,19 +148,19 @@ export const routeTree = rootRoute
     "/_auth": {
       "filePath": "_auth.tsx",
       "children": [
-        "/_auth/change-password",
-        "/_auth/dashboard"
+        "/_auth/dashboard",
+        "/_auth/profile"
       ]
     },
     "/login": {
       "filePath": "login.tsx"
     },
-    "/_auth/change-password": {
-      "filePath": "_auth.change-password.tsx",
-      "parent": "/_auth"
-    },
     "/_auth/dashboard": {
       "filePath": "_auth.dashboard.tsx",
+      "parent": "/_auth"
+    },
+    "/_auth/profile": {
+      "filePath": "_auth.profile.tsx",
       "parent": "/_auth"
     }
   }
